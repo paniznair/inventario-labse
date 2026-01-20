@@ -18,11 +18,9 @@
         .scroll-fino::-webkit-scrollbar-track { background: #1e293b; }
         .scroll-fino::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
         
-        /* ESTILOS DEL LOGIN NUEVO */
         #sys-pass::placeholder { color: #475569; opacity: 1; transition: color 0.3s; }
         #sys-pass:focus::placeholder { color: #334155; }
         
-        /* ESTILOS BOTONES FILTRO */
         .btn-filtro-activo { background-color: #3b82f6 !important; color: white !important; border-color: #2563eb !important; }
     </style>
 </head>
@@ -50,14 +48,25 @@
     </div>
 
     <div id="vista-roles" class="oculto fixed inset-0 z-40 w-full h-full bg-slate-950 items-center justify-center flex-col fade-in p-6">
-        <div class="text-center mb-12"><h2 class="text-3xl font-bold text-white">Selecciona Perfil</h2></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
-            <button onclick="seleccionarRol('admin')" class="group bg-slate-900 border border-slate-800 p-10 rounded-3xl hover:border-blue-500/50 flex flex-col items-center gap-4 text-center cursor-pointer shadow-xl transition-all">
-                <i class="fas fa-user-cog text-4xl text-blue-400"></i><div><h3 class="text-2xl font-bold text-white">Administración</h3><p class="text-slate-400 text-sm">Gestión total</p></div>
+        <div class="text-center mb-8"><h2 class="text-3xl font-bold text-white">Selecciona Perfil</h2></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full px-4">
+            
+            <button onclick="seleccionarRol('admin')" class="group bg-slate-900 border border-slate-800 p-8 rounded-3xl hover:border-blue-500/50 flex flex-col items-center gap-4 text-center cursor-pointer shadow-xl transition-all">
+                <i class="fas fa-user-cog text-4xl text-blue-400 group-hover:scale-110 transition"></i>
+                <div><h3 class="text-xl font-bold text-white">Administración</h3><p class="text-slate-400 text-xs mt-1">Gestión total</p></div>
             </button>
-            <button onclick="seleccionarRol('visita')" class="group bg-slate-900 border border-slate-800 p-10 rounded-3xl hover:border-emerald-500/50 flex flex-col items-center gap-4 text-center cursor-pointer shadow-xl transition-all">
-                <i class="fas fa-eye text-4xl text-emerald-400"></i><div><h3 class="text-2xl font-bold text-white">Consulta</h3><p class="text-slate-400 text-sm">Solo lectura</p></div>
+
+            <button onclick="seleccionarRol('visita')" class="group bg-slate-900 border border-slate-800 p-8 rounded-3xl hover:border-emerald-500/50 flex flex-col items-center gap-4 text-center cursor-pointer shadow-xl transition-all">
+                <i class="fas fa-search text-4xl text-emerald-400 group-hover:scale-110 transition"></i>
+                <div><h3 class="text-xl font-bold text-white">Consulta</h3><p class="text-slate-400 text-xs mt-1">Ver Stock</p></div>
             </button>
+
+            <button onclick="seleccionarRol('operario')" class="group bg-slate-900 border border-slate-800 p-8 rounded-3xl hover:border-purple-500/50 flex flex-col items-center gap-4 text-center cursor-pointer shadow-xl transition-all">
+                <i class="fas fa-tasks text-4xl text-purple-400 group-hover:scale-110 transition"></i>
+                <div><h3 class="text-xl font-bold text-white">Instrumentación</h3><p class="text-slate-400 text-xs mt-1">Tareas y Recetas</p></div>
+            </button>
+
         </div>
         <button onclick="volverAlBloqueo()" class="mt-12 text-slate-500 hover:text-white text-sm transition"><i class="fas fa-arrow-left"></i> Volver</button>
     </div>
@@ -115,7 +124,7 @@
     <div id="vista-instrumentacion" class="oculto w-full h-full flex-col relative bg-slate-950 fade-in">
         <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center bg-slate-900/50 backdrop-blur-md sticky top-0 z-20">
             <div class="flex items-center gap-4">
-                <button onclick="volverAlDashboard()" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition"><i class="fas fa-arrow-left"></i></button>
+                <button onclick="volverDeInstrumentacion()" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition"><i class="fas fa-arrow-left"></i></button>
                 <h2 class="text-xl font-bold text-white text-purple-400">Trabajos de Instrumentación</h2>
             </div>
             <button id="btn-nueva-tarea" onclick="agregarTarea()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-bold text-sm transition hidden">+ Nueva Tarea</button>
@@ -134,9 +143,9 @@
             <div class="flex flex-col md:flex-row gap-4 mb-6">
                 <input type="text" id="buscador-global" onkeyup="aplicarFiltrosConsulta()" placeholder="Buscar producto o ubicación..." class="flex-1 bg-slate-900 border border-slate-700 text-white rounded-xl py-4 px-6 outline-none text-lg shadow-lg">
                 <div class="flex gap-2">
-                    <button id="btn-todos" onclick="setFiltroConsulta('todos')" class="btn-filtro-activo bg-slate-800 hover:bg-slate-700 text-white px-6 rounded-xl text-xs font-bold border border-slate-700 transition">TODOS</button>
-                    <button id="btn-faltantes" onclick="setFiltroConsulta('faltantes')" class="bg-slate-800 hover:bg-slate-700 text-red-400 px-6 rounded-xl text-xs font-bold border border-slate-700 transition">FALTANTES</button>
-                    <button onclick="generarOrden()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 px-6 rounded-xl text-xs font-bold border border-slate-700 transition">SOLICITAR (PDF)</button>
+                    <button id="btn-todos" onclick="setFiltroConsulta('todos')" class="btn-filtro-activo bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 transition">TODOS</button>
+                    <button id="btn-faltantes" onclick="setFiltroConsulta('faltantes')" class="bg-slate-800 hover:bg-slate-700 text-red-400 px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 transition">FALTANTES</button>
+                    <button onclick="generarOrden()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 transition">SOLICITAR (PDF)</button>
                 </div>
             </div>
             <div class="flex-1 bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl overflow-auto p-4">
@@ -271,15 +280,21 @@
             btnsAdmin.forEach(b => { if(b) b.classList.toggle('hidden', !esAdmin); });
             const btnAddMat = document.getElementById('btn-add-mat');
             if(btnAddMat) btnAddMat.style.display = esAdmin ? 'block' : 'none';
-            if(esAdmin) window.irA('vista-dashboard'); else { 
-                window.irA('vista-consulta'); 
-                window.setFiltroConsulta('todos'); 
-            }
+            
+            if(rol === 'admin') window.irA('vista-dashboard');
+            else if(rol === 'visita') { window.irA('vista-consulta'); window.setFiltroConsulta('todos'); }
+            else if(rol === 'operario') { window.irA('vista-instrumentacion'); window.renderTareas(); }
         };
 
         window.volverAlBloqueo = () => { document.getElementById('sys-pass').value=''; window.irA('vista-pass'); };
         window.volverARoles = () => { window.irA('vista-roles'); };
         window.volverAlDashboard = () => { window.irA('vista-dashboard'); };
+        
+        // --- NAVEGACIÓN INTELIGENTE DE VUELTA ---
+        window.volverDeInstrumentacion = () => {
+            if(esAdmin) window.irA('vista-dashboard');
+            else window.irA('vista-roles');
+        };
 
         window.abrirInventario = (cat) => { catActual = cat; document.getElementById('titulo-cat').innerText = cat; window.renderTabla(); window.irA('vista-tabla'); };
 
@@ -299,15 +314,11 @@
 
             filtrados.forEach(item => {
                 const critico = parseInt(item.cant) < parseInt(item.min);
-                // RENDERIZADO UBICACION
                 let ubi = item.ubicacion ? `<span class="text-yellow-500/80 text-xs"><i class="fas fa-map-marker-alt mr-1"></i>${item.ubicacion}</span>` : '<span class="text-slate-600 text-xs">-</span>';
-                
                 let tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-900/50 border-b border-slate-800 text-slate-300";
-                
                 let btns = '';
                 if(esAdmin) btns = `<div class="flex justify-end gap-2"><button onclick="editar('${item.id}')" class="text-blue-400 hover:text-white">✏️</button><button onclick="borrar('${item.id}')" class="text-red-400 hover:text-white">🗑️</button></div>`;
-
                 tr.innerHTML = `<td class="p-4 font-mono text-blue-400 font-bold">${item.cod}</td><td class="p-4">${item.nom}</td><td class="p-4 hidden md:table-cell">${ubi}</td><td class="p-4 text-center font-bold ${critico?'text-red-400':'text-emerald-400'}">${item.cant}</td><td class="p-4 text-center"><span class="text-[10px] px-2 py-1 rounded border ${critico?'border-red-500/50 text-red-400':'border-emerald-500/50 text-emerald-400'}">${critico?'BAJO':'OK'}</span></td><td class="p-4 text-right">${btns}</td>`;
                 tbody.appendChild(tr);
             });
@@ -320,7 +331,7 @@
                 let div = document.createElement('div');
                 div.className = "bg-slate-900 p-5 rounded-xl border border-slate-800 hover:border-purple-500 cursor-pointer flex justify-between items-center group transition";
                 div.onclick = (e) => { if(!e.target.closest('button')) window.abrirDetalleTrabajo(t.id); };
-                let btns = esAdmin ? `<div class="flex gap-2"><button onclick="editNomTarea('${t.id}', event)" class="p-2 hover:text-blue-400">✏️</button><button onclick="delTarea('${t.id}', event)" class="p-2 hover:text-red-400">🗑️</button></div>` : '<span class="text-slate-600">></span>';
+                let btns = esAdmin ? `<div class="flex gap-2"><button onclick="editNomTarea('${t.id}', event)" class="p-2 hover:text-blue-400">✏️</button><button onclick="delTarea('${t.id}', event)" class="p-2 hover:text-red-400">🗑️</button></div>` : '<span class="text-slate-600 font-bold">></span>';
                 div.innerHTML = `<div class="flex items-center gap-4"><span class="text-slate-200 font-bold">${t.nombre}</span></div>${btns}`;
                 c.appendChild(div);
             });
